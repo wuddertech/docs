@@ -1,4 +1,4 @@
-<img src="_media/logo.svg" alt="drawing" width="200"/>
+<img src="images/logo.svg" alt="drawing" width="200"/>
 
 ---
 

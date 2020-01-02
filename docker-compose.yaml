@@ -9,10 +9,10 @@ x-logging:
 
 services:
   mirror:
-    image: wudder/docs
+    image: brunneis/httpd
     container_name: wudder-docs
     volumes:
-      - ./docs:/var/docsify/docs:ro
+      - ./content:/opt/httpd/htdocs:ro
     ports:
-      - 80:3000
+      - 80:80
     logging: *default
