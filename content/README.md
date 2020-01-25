@@ -4,6 +4,52 @@
 
 # GraphQL API
 
+## Endpoints
+
+| GraphQL endpoint                | Name    | Description                                                                                                                                                                                                                                                                               |
+| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| https://api.testnet.wudder.tech | testnet | This endpoint is freely available. Usage restrictions apply. <br><br> Use this endpoint if you are a free user or you are integrating our product. <br><br> The content of the traces may be deleted after a short period of time. <br><br> The Ethereum proofs are generated once a day. |
+| https://api.wudder.graphn.dev   | mainnet | This endpoint is only available for paid users. <br><br> Use this endpoint if you have already performed the integration. <br><br> The content of the traces will persist. <br><br> The Ethereum proofs are generated every hour.                                                         |
+
+> If you are using [Python](https://github.com/wuddertech/python-sdk) or [JavaScript](https://github.com/wuddertech/wudder-js), we recommend using the [existing SDKs](https://github.com/wuddertech).
+
+## Sign up
+
+You can create an account directly through the GraphQL API.
+
+GraphQL mutation
+
+```graphql
+mutation CreateUser($user: UserInput!, $password: String!) {
+  createUser(user: $user, password: $password) {
+    id
+  }
+}
+```
+
+GraphQL variables
+
+```json
+{
+  "password": "password",
+  "user": {
+    "email": "email"
+  }
+}
+```
+
+JSON response
+
+```json
+{
+  "data": {
+    "createUser": {
+      "id": 1984
+    }
+  }
+}
+```
+
 ## Authentication
 
 ### Get auth token
@@ -13,11 +59,20 @@ To interact with the HTTP API you need to obtain first a `token` and a `refreshT
 GraphQL mutation
 
 ```graphql
-mutation {
-  login(email: "email", password: "password") {
+mutation Login($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
     token
     refreshToken
   }
+}
+```
+
+GraphQL variables
+
+```json
+{
+  "email": "email",
+  "password": "password"
 }
 ```
 
@@ -42,11 +97,19 @@ With this API call, the older `refreshToken` is invalidated.
 GraphQL mutation
 
 ```graphql
-mutation {
-  refreshToken(token: "yyyyy") {
+mutation refreshToken($refreshToken: String!) {
+  refreshToken(token: $refreshToken) {
     token
     refreshToken
   }
+}
+```
+
+GraphQL variables
+
+```json
+{
+  "refreshToken": "yyyyy"
 }
 ```
 
@@ -151,7 +214,6 @@ GraphQL mutation
 ```graphql
 mutation CreateEvidence($evidence: EvidenceInput!) {
   createEvidence(evidence: $evidence) {
-    id
     evhash
   }
 }
@@ -420,11 +482,9 @@ oc106851cc1ce91b68254c1e82b2b5e2dbd97471ec7d7ffb6f55aeadba7683a04l4b95fade1b0fde
 
 [`tx_hash`](https://etherscan.io/tx/0x2c1ecdd4516b842fcae2fe9e2d0fb45a6fbfd6411cecb2a4f84b558247435a4e)
 
-
 ```
 0x2c1ecdd4516b842fcae2fe9e2d0fb45a6fbfd6411cecb2a4f84b558247435a4e
 ```
-
 
 # MTK hash function
 
